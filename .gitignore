@@ -1,0 +1,11 @@
+# Vídeos e assets pesados
+asset/videos/
+uploads/
+
+# Illustrator e temporários
+logo/*.ai
+logo/~*.tmp
+
+# Sistema
+.DS_Store
+Thumbs.db

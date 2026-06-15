@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 374.81 134.31">
+  <text fill="#ffffff" font-family="NirmalaText-Semilight,'Nirmala Text',Manrope,sans-serif"
+        font-size="62.74" font-weight="300" transform="translate(122.39 80.64)">
+    <tspan letter-spacing="-.02em" x="0" y="0">S</tspan><tspan x="30.82" y="0">ynapta</tspan>
+  </text>
+  <path fill="#57bebf" d="M80.96,22.73l15.06,26.55-5.98,10.1-9.59-16.1-2.85,5.57,18.67,32.29-15.81,26.55-15.47-26.55c1.93-3.15,3.64-6.96,5.64-10.01.24-.36.36-.88.92-.79l8.75,15.76.7-.21,2.66-4.84c.13-.58-.22-1-.44-1.47-4.36-9.39-11.55-18.84-16.35-28.19-.46-.91-1.01-1.81-1.29-2.8l15.39-25.87Z"/>
+  <polygon fill="#57bebf" points="102.03 80.29 93.07 64.71 99.29 54.59 114.2 80.29 102.03 80.29"/>
+  <polygon fill="#57bebf" points="47.04 80.29 62.29 54.6 67.88 64.96 58.86 80.29 47.04 80.29"/>
+</svg>

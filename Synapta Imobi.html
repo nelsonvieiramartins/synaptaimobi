@@ -12,7 +12,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Synapta Imobi — Da Planta ao Lar" />
 <meta name="twitter:description" content="Vídeos e Imagens com IA para transformar a apresentação de imóveis." />
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23070707'/%3E%3Ctext y='72' x='50' text-anchor='middle' font-size='58' fill='%23C9A15C'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='43 18 75 100'%3E%3Cpath fill='%2357bebf' d='M80.96%2C22.73l15.06%2C26.55-5.98%2C10.1-9.59-16.1-2.85%2C5.57%2C18.67%2C32.29-15.81%2C26.55-15.47-26.55c1.93-3.15%2C3.64-6.96%2C5.64-10.01.24-.36.36-.88.92-.79l8.75%2C15.76.7-.21%2C2.66-4.84c.13-.58-.22-1-.44-1.47-4.36-9.39-11.55-18.84-16.35-28.19-.46-.91-1.01-1.81-1.29-2.8l15.39-25.87Z'/%3E%3Cpolygon fill='%2357bebf' points='102.03 80.29 93.07 64.71 99.29 54.59 114.2 80.29 102.03 80.29'/%3E%3Cpolygon fill='%2357bebf' points='47.04 80.29 62.29 54.6 67.88 64.96 58.86 80.29 47.04 80.29'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Manrope:wght@300;350;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -34,8 +34,16 @@
 <div id="progress"></div>
 
 <nav id="topnav">
-  <div class="brand">✦&nbsp; Synapta Imobi</div>
-  <a class="navcta" href="#cta">Falar com a equipe</a>
+  <a class="brand" href="#" aria-label="Synapta Imobi">
+    <img src="logo/marca_synapta-site.svg" alt="Synapta Imobi" class="brand-logo" />
+  </a>
+  <div class="navlinks">
+    <a href="#sobre">Sobre Nós</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#portfolio">Portfólio</a>
+    <a href="#blog">Blog</a>
+  </div>
+  <a class="navcta" href="#cta">Falar com a Equipe</a>
 </nav>
 
 <div id="hud"></div>
@@ -48,9 +56,9 @@
 <!-- ============ SCROLL SPINE ============ -->
 <main id="spine">
 
-  <!-- ===== CENA 1 — O TERRENO ===== -->
-  <section class="chapter s1" data-scene="1" data-name="Terreno" style="--len:1.35;">
-    <div class="stage" data-screen-label="Cena 1 · Terreno">
+  <!-- ===== CENA 1 — HERO ===== -->
+  <section class="chapter s1" data-scene="1" data-name="Terreno" style="--len:2;">
+    <div class="stage" data-screen-label="Cena 1 · Hero">
       <div class="filmplate">
         <video class="bg-video" src="asset/videos/magnific_camera-descends-smoothly-_ubM61KwQLD.mp4" muted playsinline webkit-playsinline preload="auto" loop></video>
       </div>
@@ -58,13 +66,61 @@
       <div class="grain"></div>
 
       <div class="layer">
-        <div class="beat" data-in="0" data-out="1">
+
+        <!-- BEAT A — headline principal (visível no primeiro terço do scroll) -->
+        <div class="beat" data-in="0.0" data-out="0.62">
           <div class="wrap">
-            <div class="label">Synapta Imobi</div>
-            <h1 class="display" style="margin:.32em 0 .42em;">Vídeos e Imagens com <em class="gold">IA</em><br/>para transformar a<br/>apresentação de imóveis.</h1>
-            <p class="lede wide">Entregamos o que produtoras levam semanas para criar.</p>
+            <div class="label s1-tag" style="margin-bottom:1.4em;">Tecnologia que Valoriza</div>
+            <h1 class="display" style="margin:0 0 .44em; max-width:16ch;">
+              Vídeos e Imagens com <em class="gold">IA</em>
+              para transformar a apresentação de imóveis.
+            </h1>
+            <p class="lede wide" style="margin-bottom:2.4em; max-width:46ch;">
+              Entregamos o que produtoras levam semanas para criar.
+            </p>
+            <a href="#cta" class="btn">Falar com a Equipe <span class="ar">→</span></a>
           </div>
         </div>
+
+        <!-- BEAT B — proof / features (entra ao rolar, sai ao sair do hero) -->
+        <div class="beat beat-feats" data-in="0.52" data-out="1.0">
+          <div class="wrap">
+            <div class="s1-feats">
+              <div class="s1-feat">
+                <svg class="s1-feat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9"/>
+                  <polyline points="12 7 12 12 15 14"/>
+                  <path d="M17 3.5 18.5 2M7 3.5 5.5 2"/>
+                </svg>
+                <div>
+                  <div class="s1-feat-name">Agilidade</div>
+                  <div class="s1-feat-desc">Imagens prontas em horas</div>
+                </div>
+              </div>
+              <div class="s1-feat">
+                <svg class="s1-feat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 2 14.4 9.4H22L16 13.6l2.4 7.4L12 17l-6.4 4 2.4-7.4L2 9.4h7.6z"/>
+                </svg>
+                <div>
+                  <div class="s1-feat-name">Qualidade</div>
+                  <div class="s1-feat-desc">Padrão premium em cada detalhe</div>
+                </div>
+              </div>
+              <div class="s1-feat">
+                <svg class="s1-feat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="3 17 8 12 12 16 17 10"/>
+                  <polyline points="15 10 17 10 17 12"/>
+                  <line x1="3" y1="20" x2="21" y2="20"/>
+                </svg>
+                <div>
+                  <div class="s1-feat-name">Resultados</div>
+                  <div class="s1-feat-desc">Apresentações que geram mais valor</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>

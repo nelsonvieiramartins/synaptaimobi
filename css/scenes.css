@@ -39,8 +39,36 @@
 }
 
 /* =========================================================
-   CENA 1 — O TERRENO  (hero / descida de drone)
+   CENA 1 — HERO
    ========================================================= */
+
+/* beats em coluna — conteúdo ancorado em baixo */
+.s1 .beat {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: clamp(64px, 9vh, 120px);
+}
+
+/* beat 2: features separadas do headline principal */
+.s1 .beat-feats {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: clamp(56px, 8vh, 110px);
+}
+
+/* vinheta extra forte no fundo para legibilidade */
+.s1 .vignette {
+  background:
+    radial-gradient(120% 90% at 50% 42%, transparent 32%, rgba(0,0,0,.85) 100%),
+    linear-gradient(180deg,
+      rgba(0,0,0,.55) 0%,
+      transparent 22%,
+      transparent 52%,
+      rgba(0,0,0,.9) 100%);
+}
+
 .s1 .sky{
   background:
     radial-gradient(120% 80% at 76% 18%, rgba(255,206,138,.55), transparent 52%),

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 374.81 134.31">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        font-family: NirmalaText-Semilight, 'Nirmala Text';
+        font-size: 62.74px;
+        font-weight: 300;
+      }
+
+      .cls-2 {
+        fill: #57bebf;
+      }
+
+      .cls-3 {
+        letter-spacing: -.02em;
+      }
+    </style>
+  </defs>
+  <rect x="-8.5" y="-8.5" width="391.82" height="151.31"/>
+  <g id="Camada_1" data-name="Camada 1">
+    <g>
+      <text class="cls-1" transform="translate(118.31 82.57)"><tspan class="cls-3" x="0" y="0">S</tspan><tspan x="30.82" y="0">ynapta</tspan></text>
+      <g>
+        <path class="cls-2" d="M76.88,24.67l15.06,26.55-5.98,10.1-9.59-16.1-2.85,5.57,18.67,32.29-15.81,26.55-15.47-26.55c1.93-3.15,3.64-6.96,5.64-10.01.24-.36.36-.88.92-.79l8.75,15.76.7-.21,2.66-4.84c.13-.58-.22-1-.44-1.47-4.36-9.39-11.55-18.84-16.35-28.19-.46-.91-1.01-1.81-1.29-2.8l15.39-25.87Z"/>
+        <polygon class="cls-2" points="97.95 82.23 89 66.64 95.21 56.53 110.12 82.23 97.95 82.23"/>
+        <polygon class="cls-2" points="42.96 82.23 58.21 56.53 63.81 66.9 54.78 82.23 42.96 82.23"/>
+      </g>
+    </g>
+  </g>
+</svg>
