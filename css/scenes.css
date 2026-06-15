@@ -1,0 +1,301 @@
+/* ============================================================
+   SYNAPTA — Cenas (stand-ins cinematográficos em CSS/SVG)
+   Cada .stage recebe --p (0..1) do motor de scroll.
+   Estrutura pronta p/ trocar por <video> real depois:
+   cada cena tem .filmplate (o "vídeo") + .layer (overlays).
+   ============================================================ */
+
+/* shared atmospheric primitives ----------------------------- */
+.filmplate{ position:absolute; inset:0; z-index:0; overflow:hidden; background:#0a0a0a; }
+.filmplate video.bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+.sky{ position:absolute; inset:0; }
+.sun{
+  position:absolute; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,236,196,.95), rgba(255,196,120,.35) 40%, transparent 70%);
+  filter:blur(2px); mix-blend-mode:screen;
+}
+.haze{ position:absolute; inset:0; mix-blend-mode:screen; pointer-events:none; }
+.skyline{
+  position:absolute; left:-5%; right:-5%; bottom:0; height:34%;
+  background-repeat:repeat-x; background-position:bottom; background-size:auto 100%;
+}
+.flare{
+  position:absolute; inset:0; mix-blend-mode:screen; pointer-events:none; opacity:.6;
+  background:radial-gradient(40% 30% at 72% 30%, rgba(255,214,150,.22), transparent 60%);
+}
+
+/* city silhouette svg */
+.skyline.far{
+  opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='200' preserveAspectRatio='none'%3E%3Cg fill='%23241a12'%3E%3Crect x='0' y='120' width='70' height='80'/%3E%3Crect x='80' y='90' width='54' height='110'/%3E%3Crect x='150' y='140' width='60' height='60'/%3E%3Crect x='225' y='70' width='44' height='130'/%3E%3Crect x='285' y='110' width='70' height='90'/%3E%3Crect x='370' y='150' width='50' height='50'/%3E%3Crect x='435' y='95' width='58' height='105'/%3E%3Crect x='505' y='130' width='66' height='70'/%3E%3Crect x='585' y='80' width='48' height='120'/%3E%3Crect x='645' y='120' width='72' height='80'/%3E%3Crect x='730' y='145' width='52' height='55'/%3E%3Crect x='795' y='100' width='60' height='100'/%3E%3Crect x='868' y='135' width='64' height='65'/%3E%3Crect x='945' y='85' width='50' height='115'/%3E%3Crect x='1010' y='125' width='70' height='75'/%3E%3Crect x='1092' y='150' width='58' height='50'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* =========================================================
+   CENA 1 — O TERRENO  (hero / descida de drone)
+   ========================================================= */
+.s1 .sky{
+  background:
+    radial-gradient(120% 80% at 76% 18%, rgba(255,206,138,.55), transparent 52%),
+    linear-gradient(180deg, #2a2316 0%, #4a3a22 26%, #7a5c30 52%, #b78844 74%, #d9a85a 100%);
+}
+.s1 .sun{ width:30vw; height:30vw; right:14%; top:10%; }
+.s1 .ground{
+  position:absolute; left:50%; bottom:-12%;
+  width:240vw; height:200vh; transform-origin:50% 0%;
+  transform:translateX(-50%) perspective(1200px)
+            rotateX(calc(72deg - var(--p,0)*16deg))
+            translateZ(calc(var(--p,0)*240px))
+            scale(calc(1 + var(--p,0)*.35));
+  background:
+    linear-gradient(180deg, #6b5430 0%, #5a4628 40%, #4a3a22 100%);
+}
+/* street grid on the ground */
+.s1 .ground::before{
+  content:""; position:absolute; inset:0;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 118px, rgba(20,14,8,.6) 118px 126px),
+    repeating-linear-gradient(90deg, transparent 0 150px, rgba(20,14,8,.55) 150px 158px);
+  opacity:.7;
+}
+/* city blocks scattered as flat footprints w/ shadow = pseudo buildings */
+.s1 .blocks{ position:absolute; inset:0; }
+.s1 .blk{
+  position:absolute; background:linear-gradient(180deg,#3a2e1c,#2a2014);
+  box-shadow:0 -8px 0 -2px rgba(0,0,0,.4), inset 0 2px 0 rgba(255,220,160,.12);
+  border-top:2px solid rgba(255,220,160,.14);
+}
+/* the empty plot (highlighted survey lot) */
+.s1 .plot{
+  position:absolute; left:50%; top:46%; transform:translate(-50%,-50%) rotateX(60deg);
+  width:300px; height:200px;
+  background:repeating-linear-gradient(45deg, rgba(201,161,92,.10) 0 14px, transparent 14px 28px);
+  outline:2px dashed rgba(201,161,92,.85); outline-offset:-2px;
+  box-shadow:0 0 60px rgba(201,161,92,.25);
+}
+.s1 .plot .stake{ position:absolute; width:7px; height:7px; background:var(--gold); border-radius:50%; box-shadow:0 0 10px var(--gold); }
+.s1 .plot .stake.a{ left:-3px; top:-3px;} .s1 .plot .stake.b{ right:-3px; top:-3px;}
+.s1 .plot .stake.c{ left:-3px; bottom:-3px;} .s1 .plot .stake.d{ right:-3px; bottom:-3px;}
+
+/* =========================================================
+   CENA 2 — A PLANTA  (técnica → humanizada)
+   ========================================================= */
+.s2 .filmplate{ background:radial-gradient(120% 120% at 50% 40%, #0d1218, #060708 70%); }
+.s2 .grid{
+  position:absolute; inset:0; opacity:.5;
+  background:
+    repeating-linear-gradient(0deg, rgba(99,183,230,.07) 0 44px, transparent 44px 45px),
+    repeating-linear-gradient(90deg, rgba(99,183,230,.07) 0 44px, transparent 44px 45px);
+  mask:radial-gradient(80% 80% at 50% 45%, #000 50%, transparent 100%);
+}
+.s2 .planwrap{ position:absolute; inset:0; display:grid; place-items:center; }
+.s2 .plan{ position:relative; width:min(56vw,720px); aspect-ratio:3/2; }
+.s2 .plan svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+.s2 .tech{ opacity:calc(1 - clamp(0,(var(--p,0) - .18)*2.4,1)); filter:drop-shadow(0 0 8px rgba(99,183,230,.5)); }
+.s2 .human{ opacity:clamp(0,(var(--p,0) - .22)*2.2,1); }
+/* sweeping scan line that reveals the humanized plan */
+.s2 .scan{
+  position:absolute; top:-4%; bottom:-4%; width:3px;
+  left:calc(8% + var(--p,0)*84%);
+  background:linear-gradient(var(--cyan),transparent);
+  box-shadow:0 0 26px 6px rgba(99,183,230,.45); opacity:calc(1 - clamp(0,(var(--p,0) - .85)*6,1));
+}
+
+/* =========================================================
+   CENA 3 — A PERSPECTIVA  (wireframe → render)
+   ========================================================= */
+.s3 .sky{ background:linear-gradient(180deg,#10141a 0%, #1b2129 45%, #2c2a26 100%); }
+.s3 .stagefloor{ position:absolute; left:0; right:0; bottom:0; height:34%;
+  background:linear-gradient(180deg,#15140f,#0a0a08); }
+.s3 .towerwrap{ position:absolute; inset:0; display:grid; place-items:end center; padding-bottom:6vh;
+  perspective:1400px; }
+.s3 .tower{
+  position:relative; width:min(26vw,300px); height:74vh;
+  transform:rotateX(4deg) rotateY(-14deg); transform-style:preserve-3d;
+}
+/* wireframe version */
+.s3 .wire{
+  position:absolute; inset:0; opacity:calc(1 - clamp(0,(var(--p,0) - .25)*2.2,1));
+  border:1.5px solid rgba(255,255,255,.7);
+  background:repeating-linear-gradient(0deg, transparent 0 calc(74vh/18 - 1.5px), rgba(255,255,255,.6) calc(74vh/18 - 1.5px) calc(74vh/18));
+  box-shadow:0 0 30px rgba(255,255,255,.12);
+}
+.s3 .wire::before{ content:""; position:absolute; inset:0;
+  background:repeating-linear-gradient(90deg, transparent 0 calc(26vw/4), rgba(255,255,255,.35) calc(26vw/4) calc(26vw/4 + 1px)); }
+/* rendered version: glass facade + lit windows */
+.s3 .render{
+  position:absolute; inset:0; opacity:clamp(0,(var(--p,0) - .30)*2.0,1);
+  background:linear-gradient(110deg,#3b4658 0%, #586b80 40%, #8aa0b4 60%, #4a5a6c 100%);
+  border-radius:2px 2px 0 0;
+  box-shadow:0 30px 80px rgba(0,0,0,.6), inset -10px 0 40px rgba(0,0,0,.4), inset 10px 0 30px rgba(255,255,255,.18);
+}
+.s3 .render::before{ content:""; position:absolute; inset:0;
+  background:
+    repeating-linear-gradient(0deg, rgba(8,12,16,.55) 0 6px, transparent 6px calc(74vh/18)),
+    repeating-linear-gradient(90deg, rgba(8,12,16,.5) 0 4px, transparent 4px calc(26vw/4));
+}
+.s3 .render::after{ content:""; position:absolute; left:8%; right:8%; bottom:-2px; height:6%;
+  background:linear-gradient(#caa15c,#7c5d2c); } /* lobby/base */
+.s3 .glow{ position:absolute; inset:-30% -20%; opacity:clamp(0,(var(--p,0) - .4)*2,.8);
+  background:radial-gradient(50% 50% at 50% 60%, rgba(255,200,130,.18), transparent 70%); mix-blend-mode:screen; }
+
+/* =========================================================
+   CENA 4 — A OBRA  (estrutura de concreto + orbit)
+   ========================================================= */
+.s4 .sky{ background:linear-gradient(180deg,#3a3d40 0%, #54565a 50%, #6b6c6d 100%); }
+.s4 .scene4{ position:absolute; inset:0; display:grid; place-items:end center; padding-bottom:8vh; perspective:1500px; }
+.s4 .struct{
+  position:relative; width:min(40vw,440px); height:60vh;
+  transform:rotateY(calc(-22deg + var(--p,0)*40deg)) rotateX(3deg);
+  transform-style:preserve-3d;
+}
+/* concrete slabs / columns */
+.s4 .struct::before{ content:""; position:absolute; inset:0;
+  background:
+    repeating-linear-gradient(0deg, #8a8a86 0 8px, transparent 8px calc(60vh/9)),
+    repeating-linear-gradient(90deg, #7c7c78 0 10px, transparent 10px calc(40vw/5));
+  filter:contrast(.9) brightness(.92);
+}
+.s4 .struct::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:60%;
+  background:repeating-linear-gradient(0deg, transparent 0 calc(60vh/9), rgba(40,40,38,.35) calc(60vh/9) calc(60vh/9 + 2px));
+} /* upper-floor facade-in-progress shading */
+.s4 .crane{ position:absolute; left:50%; top:-18%; width:2px; height:30vh; background:#caa15c; transform-origin:bottom; }
+.s4 .crane::before{ content:""; position:absolute; top:0; left:-22vw; width:30vw; height:3px; background:#caa15c; }
+.s4 .crane::after{ content:""; position:absolute; top:0; left:6vw; width:6vw; height:3px; background:#caa15c; }
+.s4 .dust{ position:absolute; inset:0; mix-blend-mode:screen; opacity:.4;
+  background:radial-gradient(40% 30% at 50% 80%, rgba(220,210,190,.3), transparent 70%); }
+
+/* =========================================================
+   CENA 5 — A FACHADA  (dia → noite, janelas acendem)
+   ========================================================= */
+.s5 .sky{
+  background:linear-gradient(180deg,
+    hsl(calc(210 - var(--p,0)*16) calc(40% - var(--p,0)*30%) calc(60% - var(--p,0)*54%)) 0%,
+    hsl(calc(28 + var(--p,0)*4) calc(60% - var(--p,0)*40%) calc(52% - var(--p,0)*46%)) 60%,
+    hsl(230 30% calc(20% - var(--p,0)*16%)) 100%);
+}
+.s5 .sun{ width:18vw; height:18vw; right:20%; top:calc(14% + var(--p,0)*40%);
+  opacity:calc(1 - var(--p,0)*.7); }
+.s5 .building5{ position:absolute; left:50%; bottom:0; transform:translateX(-50%);
+  width:min(46vw,560px); height:82vh;
+  background:linear-gradient(110deg,#2b3340,#3c4757 50%,#222934);
+  box-shadow:0 30px 90px rgba(0,0,0,.6);
+}
+.s5 .winds{ position:absolute; inset:8% 7% 0; display:grid;
+  grid-template-columns:repeat(6,1fr); grid-auto-rows:1fr; gap:10px 12px; }
+.s5 .w{ background:rgba(120,150,180,.18); border:1px solid rgba(0,0,0,.3);
+  transition:background .5s, box-shadow .5s; }
+.s5 .w.lit{ background:rgba(255,206,140,.92); box-shadow:0 0 18px rgba(255,196,120,.7); }
+
+/* =========================================================
+   CENA 6 — ÁREAS COMUNS  (lazer / piscina, push lento)
+   ========================================================= */
+.s6 .filmplate{ background:linear-gradient(180deg,#1a2622 0%, #213029 55%, #11150f 100%); }
+.s6 .scene6{ position:absolute; inset:0; transform:scale(calc(1 + var(--p,0)*.18)); transform-origin:50% 56%; }
+.s6 .pool{ position:absolute; left:8%; right:8%; bottom:14%; height:30%; border-radius:120px/40px;
+  background:linear-gradient(180deg,#3f7d86,#2a5b66 60%,#1d4049);
+  box-shadow:inset 0 8px 30px rgba(255,255,255,.2), 0 20px 60px rgba(0,0,0,.5); }
+.s6 .pool::after{ content:""; position:absolute; inset:0; border-radius:inherit;
+  background:repeating-linear-gradient(92deg, transparent 0 18px, rgba(255,255,255,.08) 18px 20px); }
+.s6 .deck{ position:absolute; left:0; right:0; bottom:0; height:18%;
+  background:linear-gradient(#3a3327,#241f17); }
+.s6 .palm{ position:absolute; bottom:30%; width:4px; height:24%; background:#1c1a12; }
+.s6 .palm::before{ content:""; position:absolute; top:-6px; left:-26px; width:56px; height:30px; border-radius:50%;
+  background:radial-gradient(circle at 50% 30%, #2f4a2a, #16240f); }
+.s6 .palm.l{ left:16%; } .s6 .palm.r{ right:18%; height:30%; bottom:26%; }
+.s6 .warm6{ position:absolute; inset:0; mix-blend-mode:screen;
+  background:radial-gradient(70% 50% at 50% 70%, rgba(255,190,120,.22), transparent 70%); }
+
+/* =========================================================
+   CENA 7 — APARTAMENTO VAZIO  (giro lento, respiro)
+   ========================================================= */
+.s7 .filmplate{ background:#16130d; perspective:1600px; }
+.s7 .room{ position:absolute; inset:0; transform-style:preserve-3d;
+  transform:rotateY(calc(-6deg + var(--p,0)*12deg)); }
+.s7 .floor{ position:absolute; left:-20%; right:-20%; bottom:0; height:42%;
+  background:linear-gradient(180deg,#c9c2b6,#9c958a);
+  transform:rotateX(72deg); transform-origin:bottom; opacity:.9; }
+.s7 .floor::after{ content:""; position:absolute; inset:0;
+  background:repeating-linear-gradient(90deg, transparent 0 80px, rgba(0,0,0,.06) 80px 82px); }
+.s7 .wallL{ position:absolute; left:0; top:0; bottom:0; width:22%;
+  background:linear-gradient(90deg,#efeae1,#d8d2c6); transform:perspective(1200px) rotateY(40deg); transform-origin:left; }
+.s7 .wallR{ position:absolute; right:0; top:0; bottom:0; width:22%;
+  background:linear-gradient(270deg,#efeae1,#cfc8bb); transform:perspective(1200px) rotateY(-40deg); transform-origin:right; }
+.s7 .window7{ position:absolute; left:26%; right:26%; top:12%; bottom:30%;
+  background:linear-gradient(180deg,#cf9f5e 0%, #b9824a 40%, #6a5b6e 100%);
+  box-shadow:inset 0 0 0 10px #efeae1, 0 0 60px rgba(255,200,130,.2); overflow:hidden; }
+.s7 .window7 .sky7{ position:absolute; inset:0; }
+.s7 .window7 .skyline{ height:40%; }
+.s7 .window7::after{ content:""; position:absolute; left:50%; top:0; bottom:0; width:10px; background:#efeae1; transform:translateX(-50%); }
+.s7 .shaft{ position:absolute; left:30%; bottom:0; width:40%; height:46%;
+  background:linear-gradient(180deg, rgba(255,210,150,.28), transparent);
+  transform:skewX(-22deg); mix-blend-mode:screen; }
+
+/* =========================================================
+   CENA 8 — APARTAMENTO DECORADO  (clímax: vazio → lar)
+   reaproveita a sala da Cena 7, móveis sobem/aparecem
+   ========================================================= */
+.s8 .filmplate{ background:#16130d; perspective:1600px; }
+.s8 .room{ position:absolute; inset:0; }
+.s8 .floor{ position:absolute; left:-20%; right:-20%; bottom:0; height:42%;
+  background:linear-gradient(180deg,#c9c2b6,#9c958a); transform:rotateX(72deg); transform-origin:bottom; }
+.s8 .wallL{ position:absolute; left:0; top:0; bottom:0; width:22%; background:linear-gradient(90deg,#efeae1,#d8d2c6); transform:perspective(1200px) rotateY(40deg); transform-origin:left; }
+.s8 .wallR{ position:absolute; right:0; top:0; bottom:0; width:22%; background:linear-gradient(270deg,#efeae1,#cfc8bb); transform:perspective(1200px) rotateY(-40deg); transform-origin:right; }
+.s8 .window8{ position:absolute; left:26%; right:26%; top:12%; bottom:30%;
+  background:linear-gradient(180deg,#cf9f5e,#b9824a 40%,#6a5b6e); box-shadow:inset 0 0 0 10px #efeae1; overflow:hidden; }
+.s8 .window8 .skyline{ height:40%; }
+.s8 .window8::after{ content:""; position:absolute; left:50%; top:0; bottom:0; width:10px; background:#efeae1; transform:translateX(-50%); }
+/* warm light blooms in */
+.s8 .warm8{ position:absolute; inset:0; mix-blend-mode:screen; opacity:var(--p,0);
+  background:radial-gradient(60% 50% at 38% 64%, rgba(255,176,96,.4), transparent 70%); }
+/* furniture pieces: each fades+rises at its threshold via --t */
+.s8 .furn{ position:absolute; opacity:0; transform:translateY(26px);
+  animation:none; }
+.s8 .rug{ left:30%; right:30%; bottom:18%; height:9%; background:radial-gradient(ellipse,#b89a6f,#8a6f47); border-radius:50%; filter:blur(.5px); }
+.s8 .sofa{ left:33%; right:33%; bottom:24%; height:11%; background:linear-gradient(#e7ddca,#cdbfa1); border-radius:14px 14px 6px 6px; box-shadow:0 10px 30px rgba(0,0,0,.4); }
+.s8 .sofa::before{ content:""; position:absolute; inset:6% 6% 40%; background:#f1e9d8; border-radius:10px; }
+.s8 .table{ left:43%; right:43%; bottom:20%; height:4%; background:linear-gradient(#6f5235,#4f3a24); border-radius:6px; }
+.s8 .plant{ right:30%; bottom:24%; width:5%; height:20%; }
+.s8 .plant::before{ content:""; position:absolute; bottom:0; left:38%; width:24%; height:34%; background:#6f5235; border-radius:4px; }
+.s8 .plant::after{ content:""; position:absolute; bottom:28%; left:-30%; right:-30%; height:74%; border-radius:50%;
+  background:radial-gradient(circle at 50% 40%, #3c5e34, #1f3a1c); }
+.s8 .lamp{ left:31%; bottom:24%; width:3%; height:24%; background:linear-gradient(#3a3228,#241e16); }
+.s8 .lamp::after{ content:""; position:absolute; top:-30%; left:-120%; right:-120%; height:60%; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,196,120,.6), transparent 70%); mix-blend-mode:screen; }
+.s8 .art{ left:30%; top:24%; width:11%; height:16%; background:linear-gradient(135deg,#caa15c,#7c5d2c); border:5px solid #efeae1; }
+
+/* =========================================================
+   CENA 9 — A VISTA AÉREA  (pullback / fechamento)
+   ========================================================= */
+.s9 .sky{ background:radial-gradient(120% 90% at 50% 12%, rgba(255,206,138,.5), transparent 50%),
+  linear-gradient(180deg,#241d12,#5a4326 55%,#caa15c 100%); }
+.s9 .scene9{ position:absolute; inset:0; transform:scale(calc(1.5 - var(--p,0)*.7)) translateY(calc(var(--p,0)*-8%));
+  transform-origin:50% 60%; }
+.s9 .condo{ position:absolute; left:50%; top:46%; transform:translate(-50%,-50%);
+  width:18%; aspect-ratio:1/1.6; background:linear-gradient(110deg,#3b4658,#6a7c90);
+  box-shadow:0 20px 50px rgba(0,0,0,.5); }
+.s9 .condo::after{ content:""; position:absolute; inset:0;
+  background:repeating-linear-gradient(0deg, rgba(8,12,16,.5) 0 4px, transparent 4px 14px); }
+.s9 .pool9{ position:absolute; left:54%; top:60%; width:10%; height:5%; background:#3f7d86; border-radius:40px; transform:translate(-50%,0) rotate(8deg); }
+.s9 .city9{ position:absolute; inset:0; }
+.s9 .city9 .skyline{ height:26%; opacity:.6; }
+.s9 .city9 .skyline.l2{ bottom:0; height:18%; opacity:.4; filter:brightness(.7); }
+
+/* =========================================================
+   CENA 10 — LOGO / CTA FINAL  (fundo preto, logo dourado)
+   ========================================================= */
+.s10 .filmplate{ background:radial-gradient(120% 90% at 50% 40%, #14110a, #000 75%); }
+.s10 .seal{ position:absolute; inset:0; display:grid; place-items:center; }
+.s10 .ring{ position:absolute; width:46vmin; height:46vmin; border-radius:50%;
+  border:1px solid var(--gold-soft); opacity:calc(.4 + var(--p,0)*.6);
+  box-shadow:0 0 80px rgba(201,161,92,.12) inset; }
+
+/* small helper for staggered furniture reveal handled in JS by toggling .in */
+.s8 .furn.in{ opacity:1; transform:none; transition:opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
