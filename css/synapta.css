@@ -194,13 +194,12 @@ em.gold{ color:var(--gold); font-style:italic; }
   flex-shrink:0; text-decoration:none;
 }
 #topnav .brand-logo{
-  height:28px; width:auto; display:block;
+  height:80px; width:auto; display:block;
 }
 
 /* links centrais */
 #topnav .navlinks{
-  display:flex; align-items:center; gap:clamp(18px,2.2vw,38px);
-  pointer-events:auto; flex:1 1 0; justify-content:center;
+  display:none;
 }
 #topnav .navlinks a{
   font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;

@@ -334,6 +334,14 @@
     var totalScenes = stages.filter(function (s) {
       return s && s.querySelector('video.bg-video');
     }).length;
+
+    /* sem vídeos → libera callbacks imediatamente (não bloqueia o loader) */
+    if (totalScenes === 0) {
+      if (onFirstReady) onFirstReady();
+      if (onAllDone)    onAllDone();
+      return;
+    }
+
     var doneScenes      = 0;
     var firstReadyFired = false;
 
@@ -502,6 +510,7 @@
       gone = true;
       document.body.classList.remove('loading');
       overlay.classList.add('pl-out');
+      setTimeout(measure, 50);   /* re-medir após body.loading removido */
       setTimeout(function () { if (overlay.parentNode) overlay.remove(); }, 900);
     }
 
@@ -531,8 +540,8 @@
     measure();
     initScrubbers(
       function (pct, label) { if (loaderCtrl) loaderCtrl.tick(pct, label); },
-      function ()            { if (loaderCtrl) loaderCtrl.dismiss(); }, /* 1ª cena → fecha loader */
-      null /* onAllDone: captura restantes em background silencioso */
+      null,                                                            /* não fecha na 1ª cena */
+      function ()            { if (loaderCtrl) loaderCtrl.dismiss(); } /* fecha só quando TUDO pronto */
     );
   }
 
