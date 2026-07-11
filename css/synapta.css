@@ -287,13 +287,14 @@ body.loading{ overflow:hidden; height:100vh; }
 .pl-fill{
   height:100%; width:0%;
   background:linear-gradient(90deg,var(--gold),#8fd9da);
-  transition:width .28s ease;
+  animation:pl-fill-grow 5s ease-out forwards;
 }
-.pl-status{
-  font-family:var(--mono); font-size:10px;
-  letter-spacing:.22em; text-transform:uppercase;
-  color:rgba(250,250,247,.32);
+@keyframes pl-fill-grow{
+  0%  { width:0%;   }
+  60% { width:72%;  }
+  100%{ width:92%;  }
 }
+.pl-status{ display:none; }
 
 /* -------- Cena 1 — hero elements -------- */
 /* label com linha decorativa à direita */

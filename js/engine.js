@@ -517,7 +517,7 @@
     if (!overlay) return { tick: function () {}, dismiss: function () {} };
 
     var gone     = false;
-    var fallback = setTimeout(function () { ctrl.dismiss(); }, 90000);
+    var fallback = setTimeout(function () { ctrl.dismiss(); }, 5000);
 
     function _dismiss() {
       if (gone) return;
@@ -553,10 +553,10 @@
     restore();
     measure();
     initScrubbers(
-      function (pct, label) { if (loaderCtrl) loaderCtrl.tick(pct, label); },
       null,
-      function ()            { if (loaderCtrl) loaderCtrl.dismiss(); },
-      3  /* dispensa loader após cenas 1-3; restantes carregam em background */
+      null,
+      function () { if (loaderCtrl) loaderCtrl.dismiss(); },
+      1  /* dispensa loader após 1ª cena; restantes carregam em background */
     );
   }
 
