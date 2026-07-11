@@ -322,8 +322,10 @@
 
   /* onTick(pct 0-100, label) — chamado a cada mudança de estado
      onFirstReady()         — chamado quando a 1ª cena (visível) está pronta
-     onAllDone()            — chamado quando TODAS as cenas estão prontas */
-  function initScrubbers(onTick, onFirstReady, onAllDone) {
+     onAllDone()            — chamado quando as cenas PRIORITÁRIAS estão prontas
+     priorityCount          — nº de cenas que devem estar prontas antes de dispensar o loader
+                              as restantes continuam capturando em background */
+  function initScrubbers(onTick, onFirstReady, onAllDone, priorityCount) {
     if (!('requestVideoFrameCallback' in HTMLVideoElement.prototype)) {
       if (onFirstReady) onFirstReady();
       if (onAllDone)    onAllDone();
@@ -344,6 +346,12 @@
 
     var doneScenes      = 0;
     var firstReadyFired = false;
+    var priorityFired   = false;
+
+    /* quantas cenas devem estar prontas antes de dispensar o loader */
+    var PRIORITY = (typeof priorityCount === 'number' && priorityCount > 0)
+      ? Math.min(priorityCount, totalScenes)
+      : totalScenes;
 
     /* Começa a captura da cena activa para o utilizador ver resultado primeiro */
     var activeIdx = 0, bestDist = Infinity;
@@ -359,11 +367,12 @@
     }
 
     function captureNext() {
-      if (!queue.length) { if (onAllDone) onAllDone(); return; }
+      if (!queue.length) return; /* todas capturadas */
       var sceneNum = doneScenes + 1;
-      if (onTick) onTick(
-        Math.round(doneScenes / totalScenes * 100),
-        'Cena ' + sceneNum + ' de ' + totalScenes + '…'
+      /* só atualiza o loader durante a fase prioritária */
+      if (onTick && doneScenes < PRIORITY) onTick(
+        Math.round(doneScenes / PRIORITY * 100),
+        'Cena ' + sceneNum + ' de ' + PRIORITY + '…'
       );
       var i      = queue.shift();
       var stage  = stages[i];
@@ -444,19 +453,24 @@
             canvas.style.opacity = '1';
             doneScenes++;
 
-            /* 1ª cena pronta → libera loader para o utilizador interagir */
             if (!firstReadyFired) {
               firstReadyFired = true;
               if (onFirstReady) onFirstReady();
             }
 
-            if (onTick) onTick(
-              Math.round(doneScenes / totalScenes * 100),
-              doneScenes < totalScenes
-                ? doneScenes + ' de ' + totalScenes + ' prontas'
-                : 'Pronto!'
-            );
-            captureNext();
+            /* dispensa o loader quando as cenas prioritárias estiverem prontas */
+            if (!priorityFired && doneScenes >= PRIORITY) {
+              priorityFired = true;
+              if (onTick) onTick(100, 'Pronto!');
+              if (onAllDone) onAllDone();
+            } else if (onTick && doneScenes < PRIORITY) {
+              onTick(
+                Math.round(doneScenes / PRIORITY * 100),
+                doneScenes + ' de ' + PRIORITY + ' prontas'
+              );
+            }
+
+            captureNext(); /* continua capturando cenas restantes em background */
           }
         }, 50);
       }
@@ -540,8 +554,9 @@
     measure();
     initScrubbers(
       function (pct, label) { if (loaderCtrl) loaderCtrl.tick(pct, label); },
-      null,                                                            /* não fecha na 1ª cena */
-      function ()            { if (loaderCtrl) loaderCtrl.dismiss(); } /* fecha só quando TUDO pronto */
+      null,
+      function ()            { if (loaderCtrl) loaderCtrl.dismiss(); },
+      3  /* dispensa loader após cenas 1-3; restantes carregam em background */
     );
   }
 
