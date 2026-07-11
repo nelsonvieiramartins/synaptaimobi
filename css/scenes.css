@@ -42,6 +42,18 @@
    CENA 1 — HERO
    ========================================================= */
 
+/* painel lateral escuro — faz fade-in com o scroll, dá contraste ao texto */
+.s1 .s1-panel{
+  position:absolute; inset:0; z-index:2; pointer-events:none;
+  background:linear-gradient(96deg,
+    rgba(4,10,16,.96) 0%,
+    rgba(4,10,16,.82) 28%,
+    rgba(4,10,16,.30) 54%,
+    transparent 72%
+  );
+  opacity:clamp(0, calc(var(--p,0) * 5), 1);
+}
+
 /* beats em coluna — conteúdo ancorado em baixo */
 .s1 .beat {
   display: flex;
@@ -56,6 +68,16 @@
   flex-direction: column;
   justify-content: flex-end;
   padding-bottom: clamp(56px, 8vh, 110px);
+}
+
+/* botão ghost dentro do hero: cor teal em vez do branco padrão */
+.s1-btns .btn.ghost{
+  color:var(--gold);
+  border-color:rgba(87,190,191,.45);
+}
+.s1-btns .btn.ghost:hover{
+  background:rgba(87,190,191,.12);
+  border-color:var(--gold);
 }
 
 /* vinheta extra forte no fundo para legibilidade */
@@ -113,27 +135,51 @@
 .s1 .plot .stake.c{ left:-3px; bottom:-3px;} .s1 .plot .stake.d{ right:-3px; bottom:-3px;}
 
 /* =========================================================
-   CENA 2 — A PLANTA  (técnica → humanizada)
+   CENA 2 — A PLANTA / O PROBLEMA  (split layout)
    ========================================================= */
-.s2 .filmplate{ background:radial-gradient(120% 120% at 50% 40%, #0d1218, #060708 70%); }
-.s2 .grid{
-  position:absolute; inset:0; opacity:.5;
-  background:
-    repeating-linear-gradient(0deg, rgba(99,183,230,.07) 0 44px, transparent 44px 45px),
-    repeating-linear-gradient(90deg, rgba(99,183,230,.07) 0 44px, transparent 44px 45px);
-  mask:radial-gradient(80% 80% at 50% 45%, #000 50%, transparent 100%);
+/* video deslocado para o lado direito — esquerdo fica com o bg do stage */
+.s2 .filmplate{
+  left:47%;
 }
-.s2 .planwrap{ position:absolute; inset:0; display:grid; place-items:center; }
-.s2 .plan{ position:relative; width:min(56vw,720px); aspect-ratio:3/2; }
-.s2 .plan svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
-.s2 .tech{ opacity:calc(1 - clamp(0,(var(--p,0) - .18)*2.4,1)); filter:drop-shadow(0 0 8px rgba(99,183,230,.5)); }
-.s2 .human{ opacity:clamp(0,(var(--p,0) - .22)*2.2,1); }
-/* sweeping scan line that reveals the humanized plan */
-.s2 .scan{
-  position:absolute; top:-4%; bottom:-4%; width:3px;
-  left:calc(8% + var(--p,0)*84%);
-  background:linear-gradient(var(--cyan),transparent);
-  box-shadow:0 0 26px 6px rgba(99,183,230,.45); opacity:calc(1 - clamp(0,(var(--p,0) - .85)*6,1));
+
+/* label lateral direito fixo */
+.s2 .s2-side-label{
+  position:absolute; right:clamp(24px,2.8vw,48px); top:50%;
+  transform:translateY(-50%);
+  z-index:9; pointer-events:none;
+  font-family:var(--mono); font-size:11px; letter-spacing:.28em;
+  text-transform:uppercase; color:var(--gold);
+  white-space:nowrap;
+}
+
+/* cards horizontais da Cena 2 */
+.s2-cards{
+  display:flex; margin-top:1.8em;
+  border-top:1px solid rgba(250,250,247,.10);
+  max-width:52vw;
+}
+.s2-card{
+  flex:1; padding:1.3em 1.4em 1.3em 0;
+  border-right:1px solid rgba(250,250,247,.08);
+}
+.s2-card:last-child{ border-right:none; }
+.s2-card .bul{
+  font-size:8px; color:#C9A15C; margin-bottom:.85em; display:block;
+}
+.s2-card .ct{
+  font-family:var(--disp); font-weight:600;
+  font-size:clamp(17px,1.38vw,22px); line-height:1.08;
+  margin-bottom:.45em;
+}
+.s2-card .cd{
+  font-size:12.5px; color:rgba(250,250,247,.52);
+  line-height:1.45; font-weight:350; margin-bottom:1.3em;
+}
+.s2-card .ci{
+  width:26px; height:26px;
+  color:#C9A15C; fill:none;
+  stroke:currentColor; stroke-width:1.4;
+  stroke-linecap:round; stroke-linejoin:round;
 }
 
 /* =========================================================
@@ -175,8 +221,40 @@
   background:radial-gradient(50% 50% at 50% 60%, rgba(255,200,130,.18), transparent 70%); mix-blend-mode:screen; }
 
 /* =========================================================
-   CENA 4 — A OBRA  (estrutura de concreto + orbit)
+   CENA 4 — A OBRA  (Como Trabalhamos)
    ========================================================= */
+
+/* sombreamento lateral — gradiente da esquerda para transparente */
+.side-shade{
+  position:absolute; inset:0; z-index:5; pointer-events:none;
+  background:linear-gradient(
+    90deg,
+    rgba(0,0,0,.93) 0%,
+    rgba(0,0,0,.82) 18%,
+    rgba(0,0,0,.55) 38%,
+    rgba(0,0,0,.18) 56%,
+    transparent 70%
+  );
+}
+
+/* sombra extra nos steps (texto pequeno sobre vídeo) */
+.s4 .step .no,
+.s4 .step .ti,
+.s4 .step .de{
+  text-shadow:0 1px 6px rgba(0,0,0,.95), 0 4px 28px rgba(0,0,0,.75);
+}
+
+/* separadores mais subtis */
+.s4 .step{ border-top-color:rgba(250,250,247,.07); padding:13px 0; }
+
+/* ponto separador entre número e título */
+.s4 .step .no::after{
+  content:'·'; margin-left:10px; opacity:.5; font-weight:300;
+}
+
+/* itálico garantido no destaque da headline */
+.s4 .h2 em{ font-style:italic; font-weight:600; }
+
 .s4 .sky{ background:linear-gradient(180deg,#3a3d40 0%, #54565a 50%, #6b6c6d 100%); }
 .s4 .scene4{ position:absolute; inset:0; display:grid; place-items:end center; padding-bottom:8vh; perspective:1500px; }
 .s4 .struct{
@@ -270,6 +348,24 @@
    CENA 8 — APARTAMENTO DECORADO  (clímax: vazio → lar)
    reaproveita a sala da Cena 7, móveis sobem/aparecem
    ========================================================= */
+
+/* sombra extra no botão (não cobre pelo global) */
+.s8 .btn{
+  text-shadow:0 1px 6px rgba(0,0,0,.85), 0 3px 20px rgba(0,0,0,.6);
+}
+
+/* ghost button mais legível sobre vídeo claro */
+.s8 .btn.ghost{
+  border-color:rgba(250,250,247,.55);
+  color:var(--ink);
+  background:rgba(0,0,0,.28);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+.s8 .btn.ghost:hover{
+  background:rgba(250,250,247,.12);
+  border-color:var(--ink);
+}
 .s8 .filmplate{ background:#16130d; perspective:1600px; }
 .s8 .room{ position:absolute; inset:0; }
 .s8 .floor{ position:absolute; left:-20%; right:-20%; bottom:0; height:42%;

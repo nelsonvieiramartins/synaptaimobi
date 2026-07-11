@@ -62,6 +62,7 @@
       <div class="filmplate">
         <video class="bg-video" src="asset/videos/magnific_camera-descends-smoothly-_ubM61KwQLD.mp4" muted playsinline webkit-playsinline preload="auto" loop></video>
       </div>
+      <div class="s1-panel"></div>
       <div class="vignette"></div>
       <div class="grain"></div>
 
@@ -70,15 +71,22 @@
         <!-- BEAT A — headline principal (visível no primeiro terço do scroll) -->
         <div class="beat" data-in="0.0" data-out="0.62">
           <div class="wrap">
-            <div class="label s1-tag" style="margin-bottom:1.4em;">Tecnologia que Valoriza</div>
-            <h1 class="display" style="margin:0 0 .44em; max-width:16ch;">
+            <div class="label s1-tag" style="margin-bottom:1.6em;">Tecnologia que Valoriza</div>
+            <h1 class="display" style="margin:0 0 .38em; max-width:14ch; line-height:.96; font-size:clamp(20px,3.3vw,54px);">
               Vídeos e Imagens com <em class="gold">IA</em>
               para transformar a apresentação de imóveis.
             </h1>
-            <p class="lede wide" style="margin-bottom:2.4em; max-width:46ch;">
-              Entregamos o que produtoras levam semanas para criar.
+            <div class="s1-sep"></div>
+            <p class="lede" style="margin-bottom:2.2em; max-width:28ch; font-size:clamp(15px,1.2vw,19px); color:rgba(250,250,247,.72);">
+              Entregamos em horas o que produtoras levam semanas para criar.
             </p>
-            <a href="#cta" class="btn">Falar com a Equipe <span class="ar">→</span></a>
+            <div class="s1-btns">
+              <a href="#cta" class="btn">Falar com a Equipe <span class="ar">→</span></a>
+              <a href="#portfolio" class="btn ghost">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:17px;height:17px;flex-shrink:0;" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polygon fill="currentColor" stroke="none" points="10,8 16,12 10,16"/></svg>
+                Ver exemplos
+              </a>
+            </div>
           </div>
         </div>
 
@@ -125,29 +133,68 @@
     </div>
   </section>
 
-  <!-- ===== CENA 2 — A PLANTA (técnica → humanizada) ===== -->
+  <!-- ===== CENA 2 — A PLANTA / O PROBLEMA ===== -->
   <section class="chapter s2" data-scene="2" data-name="A Planta" style="--len:2.6;">
     <div class="stage" data-screen-label="Cena 2 · Planta">
       <div class="filmplate">
         <video class="bg-video" src="asset/videos/magnific_fixed-overhead-camera-no-_1sIZ7BZr4r.mp4" muted playsinline webkit-playsinline preload="auto" loop></video>
       </div>
+
       <div class="vignette"></div>
       <div class="grain"></div>
+
+      <!-- label fixo no lado direito -->
+      <div class="s2-side-label" aria-hidden="true">A Planta ✦</div>
 
       <!-- content beats -->
       <div class="layer">
         <!-- A: O problema -->
         <div class="beat" data-in="0.00" data-out="0.34">
           <div class="wrap">
-            <div class="label">O problema</div>
-            <h2 class="h2" style="margin:.3em 0 .8em; max-width:18ch;">Produzir conteúdo visual de qualidade para o Mercado Imobiliário pode ser um <em class="gold">pesadelo</em>.</h2>
-            <div class="cards" style="max-width:760px;">
-              <div class="card"><span class="mk">●</span><h4>Semanas de espera</h4><p>Prazos longos travam lançamentos e campanhas.</p></div>
-              <div class="card"><span class="mk">●</span><h4>Produção cara</h4><p>Equipe, equipamento e locação pesam no orçamento.</p></div>
-              <div class="card"><span class="mk">●</span><h4>Impossível escalar</h4><p>Cada novo empreendimento recomeça do zero.</p></div>
+            <div class="label" style="margin-bottom:1.2em;">O problema</div>
+            <h2 class="h2" style="margin:0; max-width:15ch; line-height:1.0;">
+              Produzir conteúdo visual de qualidade para o Mercado Imobiliário pode ser um <em class="amber">pesadelo</em>.
+            </h2>
+            <div class="s2-cards">
+              <!-- card 1: tempo -->
+              <div class="s2-card">
+                <span class="bul">●</span>
+                <div class="ct">Semanas de espera</div>
+                <div class="cd">Prazos longos travam lançamentos e campanhas.</div>
+                <svg class="ci" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9"/>
+                  <polyline points="12 7 12 12 15 14"/>
+                  <path d="M17 3.5 18.5 2M7 3.5 5.5 2"/>
+                </svg>
+              </div>
+              <!-- card 2: custo -->
+              <div class="s2-card">
+                <span class="bul">●</span>
+                <div class="ct">Produção cara</div>
+                <div class="cd">Equipe, equipamento e locação pesam no orçamento.</div>
+                <svg class="ci" viewBox="0 0 24 24">
+                  <ellipse cx="12" cy="8" rx="6" ry="2.5"/>
+                  <path d="M6 8v2.5c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5V8"/>
+                  <path d="M6 10.5V13c0 1.38 2.69 2.5 6 2.5S18 14.38 18 13v-2.5"/>
+                  <path d="M6 13v2.5c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5V13"/>
+                </svg>
+              </div>
+              <!-- card 3: escala -->
+              <div class="s2-card">
+                <span class="bul">●</span>
+                <div class="ct">Impossível escalar</div>
+                <div class="cd">Cada novo empreendimento recomeça do zero.</div>
+                <svg class="ci" viewBox="0 0 24 24">
+                  <line x1="3" y1="20" x2="21" y2="20"/>
+                  <rect x="4" y="13" width="4" height="7" rx="1"/>
+                  <rect x="10" y="9" width="4" height="11" rx="1"/>
+                  <rect x="16" y="5" width="4" height="15" rx="1"/>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
+
         <!-- B: A solução -->
         <div class="beat" data-in="0.34" data-out="0.70">
           <div class="wrap">
@@ -156,6 +203,7 @@
             <p class="lede wide">A Synapta Imobi transforma briefings em conteúdo cinematográfico muito mais rápido que qualquer produtora convencional — porque a IA está no centro do processo.</p>
           </div>
         </div>
+
         <!-- C: Como fazemos -->
         <div class="beat" data-in="0.70" data-out="1.0">
           <div class="wrap" style="display:grid; place-items:center; text-align:center;">
@@ -225,6 +273,7 @@
       <div class="filmplate">
         <video class="bg-video" src="asset/videos/magnific_camera-very-slowly-orbits_cDOkrfD0eP.mp4" muted playsinline webkit-playsinline preload="auto" loop></video>
       </div>
+      <div class="side-shade"></div>
       <div class="vignette"></div>
       <div class="grain"></div>
 
@@ -232,9 +281,9 @@
         <div class="beat" data-in="0.0" data-out="1.0">
           <div class="wrap">
             <div class="label">Como trabalhamos</div>
-            <h2 class="h2" style="margin:.3em 0 .8em; max-width:16ch;">Do briefing à entrega, <em class="gold">sem complicação</em>.</h2>
-            <div class="steps" style="max-width:640px;">
-              <div class="step"><span class="no">01</span><div class="body"><span class="ti">Briefing</span><span class="de">Em até 24h temos um retorno.</span></div></div>
+            <h2 class="h2" style="margin:.3em 0 .8em; max-width:15ch;">Do briefing à entrega, <em class="gold">sem&nbsp;complicação</em>.</h2>
+            <div class="steps" style="max-width:600px;">
+              <div class="step"><span class="no">01</span><div class="body"><span class="ti">Briefing</span><span class="de">Em até 48h, temos um rascunho.</span></div></div>
               <div class="step"><span class="no">02</span><div class="body"><span class="ti">Produção</span><span class="de">Videomaker + IA em paralelo.</span></div></div>
               <div class="step"><span class="no">03</span><div class="body"><span class="ti">Revisão</span><span class="de">Refinamos até a perfeição.</span></div></div>
               <div class="step"><span class="no">04</span><div class="body"><span class="ti">Entrega</span><span class="de">Alta resolução, pronto para mídia.</span></div></div>
@@ -339,6 +388,7 @@
       <div class="filmplate">
         <video class="bg-video" src="asset/videos/magnific_camera-locked-no-movement_wPQTKeZ7EI.mp4" muted playsinline webkit-playsinline preload="auto" loop></video>
       </div>
+      <div class="side-shade"></div>
       <div class="vignette"></div>
       <div class="grain"></div>
 
@@ -346,9 +396,9 @@
         <div class="beat" data-in="0.55" data-out="1.0">
           <div class="wrap">
             <div class="label">Próximo passo</div>
-            <h2 class="h2" style="margin:.3em 0 .5em; max-width:14ch;">Pronto para acelerar <em class="gold">suas vendas?</em></h2>
-            <p class="lede wide" style="margin-bottom:1.4em;">Entre em contato. Em até 24h retornamos com orçamento transparente e prazo para o seu projeto.</p>
-            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <h2 class="h2" style="margin:.3em 0 .5em; max-width:14ch;">Pronto para acelerar <em class="gold">suas&nbsp;vendas?</em></h2>
+            <p class="lede wide" style="margin-bottom:1.8em;">Entre em contato. Em até 24h retornamos com orçamento transparente e prazo para o seu projeto.</p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; pointer-events:auto;">
               <a class="btn" href="https://wa.me/5500000000000" target="_blank" rel="noopener">Falar pelo WhatsApp <span class="ar">→</span></a>
               <a class="btn ghost" href="mailto:contato@synaptaimobi.com.br">Enviar e-mail</a>
             </div>
