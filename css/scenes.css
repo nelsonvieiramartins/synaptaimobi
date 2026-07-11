@@ -141,6 +141,11 @@
 .s2 .filmplate{
   left:47%;
 }
+/* planta é widescreen: contain preserva proporções, sem esticar */
+.s2 .filmplate .bg-video{
+  object-fit:contain;
+  object-position:center center;
+}
 
 /* label lateral direito fixo */
 .s2 .s2-side-label{
