@@ -1,6 +1,12 @@
 # uploads temporários
 uploads/
 
+# backup do site anterior
+bckup/
+
+# pasta de atualização (fonte dos novos arquivos)
+atualizacao/
+
 # Illustrator e temporários
 logo/*.ai
 logo/~*.tmp
