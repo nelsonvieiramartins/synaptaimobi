@@ -200,6 +200,10 @@ footer{background:var(--ink);border-top:1px solid var(--edge);padding:60px 0 42p
 footer .tag{font-style:italic;font-size:21px;color:var(--paper);margin-bottom:15px;font-weight:300}
 footer .desc{font-size:13.5px;color:var(--gray);font-weight:300}
 footer .cr{font-family:var(--mono);font-size:11px;color:var(--gray-d);margin-top:24px}
+/* ---- Section 03: sticky scroll-zoom ---- */
+#solucao{overflow:clip;padding:0;min-height:300vh}
+.s3-sticky{position:sticky;top:0;height:100vh;overflow:hidden}
+#s3video{will-change:transform;transform-origin:center center}
 </style>
 </head>
 <body class="loading">
@@ -275,19 +279,21 @@ footer .cr{font-family:var(--mono);font-size:11px;color:var(--gray-d);margin-top
 </section>
 
 <!-- 03 — A SOLUÇÃO (Apartamento vazio→decorado) -->
-<section>
-  <span class="secno">03 — A solução</span>
-  <video class="vfill" muted loop playsinline preload="metadata">
-    <source src="Apartment_furnishes_itself_1080p_202607120029.mp4" type="video/mp4">
-  </video>
-  <div class="v-scrim"></div>
-  <div class="wrap content">
-    <span class="kicker reveal">A solução</span>
-    <h2 class="eyebrow-h2 reveal d1">Uma nova forma de apresentar o seu lançamento.</h2>
-    <p class="lead reveal d2">Juntamos produção audiovisual, IA de ponta e desenvolvimento web para transformar seu empreendimento numa apresentação que ninguém esquece. Dois entregáveis, uma experiência.</p>
-    <div class="grid2">
-      <div class="card pillar reveal"><div class="n">Pilar 1</div><h3>A experiência</h3><p>Um site em que o empreendimento se constrói diante do cliente: os ambientes ganham vida, a decoração se monta, a perspectiva se revela. Navegação feita para emocionar e vender.</p></div>
-      <div class="card pillar reveal d1"><div class="n">Pilar 2</div><h3>Imagens e vídeos com IA</h3><p>Peças de alto nível, geradas com IA e finalização de alta qualidade. Rápidas, fiéis ao projeto e prontas para a campanha — no site, no estande e na mídia paga.</p></div>
+<section id="solucao" class="s3-scroll-section">
+  <div class="s3-sticky">
+    <span class="secno">03 — A solução</span>
+    <video id="s3video" class="vfill" muted playsinline preload="metadata">
+      <source src="Apartment_furnishes_itself_1080p_202607120029.mp4" type="video/mp4">
+    </video>
+    <div class="v-scrim"></div>
+    <div class="wrap content">
+      <span class="kicker reveal">A solução</span>
+      <h2 class="eyebrow-h2 reveal d1">Uma nova forma de apresentar o seu lançamento.</h2>
+      <p class="lead reveal d2">Juntamos produção audiovisual, IA de ponta e desenvolvimento web para transformar seu empreendimento numa apresentação que ninguém esquece. Dois entregáveis, uma experiência.</p>
+      <div class="grid2">
+        <div class="card pillar reveal"><div class="n">Pilar 1</div><h3>A experiência</h3><p>Um site em que o empreendimento se constrói diante do cliente: os ambientes ganham vida, a decoração se monta, a perspectiva se revela. Navegação feita para emocionar e vender.</p></div>
+        <div class="card pillar reveal d1"><div class="n">Pilar 2</div><h3>Imagens e vídeos com IA</h3><p>Peças de alto nível, geradas com IA e finalização de alta qualidade. Rápidas, fiéis ao projeto e prontas para a campanha — no site, no estande e na mídia paga.</p></div>
+      </div>
     </div>
   </div>
 </section>
@@ -523,10 +529,45 @@ setTimeout(_dismissLoader, 5000);
 /* ---- Progress bar + nav ---- */
 var prog = document.getElementById('progress');
 var nav  = document.getElementById('nav');
+/* ---- Section 03: play-once + scroll-zoom ---- */
+var s3sec    = document.getElementById('solucao');
+var s3vid    = document.getElementById('s3video');
+var s3done   = false;
+var s3played = false;
+
+function applyS3Zoom() {
+  if (!s3sec || !s3vid || !s3done) return;
+  var rect = s3sec.getBoundingClientRect();
+  var h    = s3sec.offsetHeight;
+  var vh   = window.innerHeight;
+  /* progress 0→1 as user scrolls through the zoom range (after sticky locks) */
+  var p = Math.max(0, Math.min(1, -rect.top / Math.max(1, h - vh)));
+  s3vid.style.transform = 'scale(' + (1 + 0.13 * p).toFixed(4) + ')';
+}
+
+if (s3sec && s3vid) {
+  /* trigger play once when section enters viewport */
+  var s3playIO = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting && !s3played) {
+      s3played = true;
+      s3vid.play().catch(function(){});
+      s3playIO.disconnect();
+    }
+  }, { threshold: 0.2 });
+  s3playIO.observe(s3sec);
+
+  /* freeze on last frame when video ends */
+  s3vid.addEventListener('ended', function() {
+    s3done = true;
+    s3vid.pause();
+  });
+}
+
 addEventListener('scroll', function(){
   var h = document.documentElement, st = h.scrollTop, sh = h.scrollHeight - h.clientHeight;
   prog.style.width = (st / sh * 100) + '%';
   nav.classList.toggle('solid', st > 60);
+  applyS3Zoom();
 }, { passive: true });
 
 /* ---- Portfolio lightbox ---- */
@@ -562,7 +603,7 @@ var lazyIO = new IntersectionObserver(function(entries){
     else e.target.pause();
   });
 }, { threshold: 0.15 });
-document.querySelectorAll('video:not(#hero video):not(#vmVideo)').forEach(function(v){
+document.querySelectorAll('video:not(#hero video):not(#vmVideo):not(#s3video)').forEach(function(v){
   lazyIO.observe(v);
 });
 </script>
